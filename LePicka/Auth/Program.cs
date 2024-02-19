@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
 namespace Auth
@@ -23,6 +24,14 @@ namespace Auth
             builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("AuthConn")));
             builder.Services.AddSwaggerGen();
             builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllHeaders", corsbuilder =>
+                {
+                    corsbuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -48,7 +57,7 @@ namespace Auth
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
+            app.UseCors();
             PrepDb.PrepPopulation(app);
             app.MapControllers();
 

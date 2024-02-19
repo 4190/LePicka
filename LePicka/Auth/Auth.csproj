@@ -2,9 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	  <InvariantGlobalization>false</InvariantGlobalization>
     <UserSecretsId>46844d56-1959-48fb-ab6a-2e2f091b4bb7</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
