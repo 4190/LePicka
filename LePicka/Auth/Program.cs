@@ -1,5 +1,6 @@
 
 using Auth.Data;
+using Auth.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,7 @@ namespace Auth
             builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("AuthConn")));
             builder.Services.AddSwaggerGen();
             builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+            builder.Services.AddScoped<IManageJWTService, ManageJWTService>();
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             builder.Services.AddCors(options =>
             {
