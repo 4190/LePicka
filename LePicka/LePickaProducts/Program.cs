@@ -1,4 +1,7 @@
 
+using LePickaProducts.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace LePickaProducts
 {
     public class Program
@@ -11,6 +14,8 @@ namespace LePickaProducts
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("AuthConn")));
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -26,6 +31,7 @@ namespace LePickaProducts
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+            PrepDb.PrepPopulation(app);
 
 
             app.MapControllers();
