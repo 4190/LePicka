@@ -1,0 +1,6 @@
+@LePickaProducts_HostAddress = http://localhost:5168
+
+GET {{LePickaProducts_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
