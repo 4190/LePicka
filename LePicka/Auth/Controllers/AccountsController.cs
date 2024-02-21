@@ -1,7 +1,9 @@
 using Auth.AsyncDataServices;
 using Auth.Data;
+using Auth.Dto;
 using Auth.Models;
 using Auth.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR.Protocol;
@@ -22,13 +24,15 @@ namespace Auth.Controllers
         private readonly IConfiguration configuration;
         private readonly IManageJWTService _jwtService;
         private readonly IMessageBusClient _messageBusClient;
+        private readonly IMapper _mapper;
 
         public AccountsController(ILogger<AccountsController> logger, 
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             IConfiguration configuration,
             IManageJWTService jwtService,
-            IMessageBusClient messageBusClient)
+            IMessageBusClient messageBusClient,
+            IMapper mapper)
         {
             _logger = logger;
             this.userManager = userManager;
@@ -36,6 +40,7 @@ namespace Auth.Controllers
             this.configuration = configuration;
             _jwtService = jwtService;
             _messageBusClient = messageBusClient;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -53,6 +58,17 @@ namespace Auth.Controllers
                 };
                 var claimsDB = await userManager.GetClaimsAsync(user);
                 claims.AddRange(claimsDB);
+
+                try
+                {
+                    var userCreatedDto = _mapper.Map<UserCreatedDto>(user);
+                    userCreatedDto.Event = "User_Created";
+                    userCreatedDto.DataSourceMicroserviceName = "Auth";
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"-->Could not send asynchronously {ex.Message}");
+                }
 
                 return _jwtService.BuildToken(userCredentials,
                     claims,

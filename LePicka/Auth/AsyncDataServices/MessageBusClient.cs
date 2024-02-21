@@ -1,12 +1,14 @@
 ﻿using RabbitMQ.Client;
 using System.Text.Json;
 using System.Text;
+using Auth.Dto;
 
 namespace Auth.AsyncDataServices
 {
     public interface IMessageBusClient
     {
         void PublishTestEvent();
+        void PublishUserCreatedEvent(UserCreatedDto userCreatedDto);
     }
 
     public class MessageBusClient : IMessageBusClient
@@ -43,16 +45,13 @@ namespace Auth.AsyncDataServices
         public void PublishTestEvent()
         {
             var message = "test message";
+            SendMessageIfRabbitMQConnectionOpen(message);
+        }
 
-            if (_connection.IsOpen)
-            {
-                System.Diagnostics.Debug.WriteLine("--> RabbitMQ Connection open, sending message...");
-                SendMessage(message);
-            }
-            else
-            {
-                Console.WriteLine("--> RabbitMQ Connection closed, not sending message...");
-            }
+        public void PublishUserCreatedEvent(UserCreatedDto userCreatedDto)
+        {
+            var message = JsonSerializer.Serialize(userCreatedDto);
+            SendMessageIfRabbitMQConnectionOpen(message);
         }
 
         private void SendMessage(string message)
@@ -61,6 +60,18 @@ namespace Auth.AsyncDataServices
 
             _channel.BasicPublish(exchange: "trigger", routingKey: "", basicProperties: null, body: body);
             System.Diagnostics.Debug.WriteLine($"--> We have sent message: {message}");
+        }
+
+        private void SendMessageIfRabbitMQConnectionOpen(string message)
+        {
+            if (_connection.IsOpen)
+            {
+                SendMessage(message);
+            }
+            else
+            {
+                Console.WriteLine("--> RabbitMQ Connection closed, not sending message...");
+            }
         }
 
         public void Dispose()

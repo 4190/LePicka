@@ -25,6 +25,7 @@ namespace Auth
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("AuthConn")));
             builder.Services.AddSwaggerGen();
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             builder.Services.AddScoped<IManageJWTService, ManageJWTService>();
             builder.Services.AddScoped<IMessageBusClient, MessageBusClient>();
