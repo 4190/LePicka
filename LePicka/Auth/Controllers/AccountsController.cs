@@ -64,6 +64,7 @@ namespace Auth.Controllers
                     var userCreatedDto = _mapper.Map<UserCreatedDto>(user);
                     userCreatedDto.Event = "User_Created";
                     userCreatedDto.DataSourceMicroserviceName = "Auth";
+                    _messageBusClient.PublishUserCreatedEvent(userCreatedDto);
                 }
                 catch (Exception ex)
                 {
