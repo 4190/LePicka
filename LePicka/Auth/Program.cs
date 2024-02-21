@@ -1,4 +1,5 @@
 
+using Auth.AsyncDataServices;
 using Auth.Data;
 using Auth.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -26,6 +27,7 @@ namespace Auth
             builder.Services.AddSwaggerGen();
             builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             builder.Services.AddScoped<IManageJWTService, ManageJWTService>();
+            builder.Services.AddScoped<IMessageBusClient, MessageBusClient>();
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             builder.Services.AddCors(options =>
             {

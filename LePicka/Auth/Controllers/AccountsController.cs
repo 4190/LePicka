@@ -1,8 +1,10 @@
+using Auth.AsyncDataServices;
 using Auth.Data;
 using Auth.Models;
 using Auth.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR.Protocol;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
@@ -19,18 +21,21 @@ namespace Auth.Controllers
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly IConfiguration configuration;
         private readonly IManageJWTService _jwtService;
+        private readonly IMessageBusClient _messageBusClient;
 
         public AccountsController(ILogger<AccountsController> logger, 
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             IConfiguration configuration,
-            IManageJWTService jwtService)
+            IManageJWTService jwtService,
+            IMessageBusClient messageBusClient)
         {
             _logger = logger;
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.configuration = configuration;
             _jwtService = jwtService;
+            _messageBusClient = messageBusClient;
         }
 
         [HttpPost]
@@ -87,6 +92,14 @@ namespace Auth.Controllers
             {
                 return BadRequest("incorrect login");
             }
+        }
+
+        [HttpGet]
+        public string Test()
+        {
+            _messageBusClient.PublishTestEvent();
+
+            return "ok";
         }
     }
 }
