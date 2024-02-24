@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LePickaProducts.Domain.Products;
+using Microsoft.EntityFrameworkCore;
 
-namespace LePickaProducts.Data
+namespace LePickaProducts.Infrastructure.DatabaseContext
 {
     public class ApplicationDbContext : DbContext
     {
@@ -9,9 +10,10 @@ namespace LePickaProducts.Data
         {
         }
 
+        public DbSet<Product> Products { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
         }
     }
 }
