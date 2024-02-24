@@ -1,13 +1,13 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using LePickaProducts.Application.Queries.Products;
-using LePickaProducts.Application.Commands;
 using AutoMapper;
+using LePickaProducts.Application.Commands.Products;
 
 namespace LePickaProducts.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class ProductsController : ControllerBase
     {
 

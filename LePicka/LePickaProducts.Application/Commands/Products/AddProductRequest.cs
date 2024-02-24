@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LePickaProducts.Application.Commands
+namespace LePickaProducts.Application.Commands.Products
 {
     public class AddProductRequest
     {

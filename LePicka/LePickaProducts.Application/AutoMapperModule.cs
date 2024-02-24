@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using AutoMapper;
-using LePickaProducts.Application.Commands;
+using LePickaProducts.Application.Commands.Products;
 using LePickaProducts.Domain.Products;
 
 namespace LePickaProducts.Application
