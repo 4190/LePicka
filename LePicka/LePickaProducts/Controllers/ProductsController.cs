@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using LePickaProducts.Application.Queries.Products;
 using LePickaProducts.Application.Commands;
+using AutoMapper;
 
 namespace LePickaProducts.Controllers
 {
@@ -12,11 +13,13 @@ namespace LePickaProducts.Controllers
 
         private readonly ILogger<ProductsController> _logger;
         private readonly IMediator _mediator;
-        
-        public ProductsController(ILogger<ProductsController> logger, IMediator mediator)
+        private readonly IMapper _mapper;
+
+        public ProductsController(ILogger<ProductsController> logger, IMediator mediator, IMapper mapper)
         {
             _logger = logger;
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -29,7 +32,8 @@ namespace LePickaProducts.Controllers
         [HttpPost]
         public async Task<ActionResult> TestAdd([FromBody] AddProductRequest request)
         {
-            var prod = await _mediator.Send(new AddProductCommand(request.Name, request.Description, request.Category, request.Price));
+            AddProductCommand command = _mapper.Map<AddProductCommand>(request);
+            var prod = await _mediator.Send(command);
 
             return Ok(prod);
         }

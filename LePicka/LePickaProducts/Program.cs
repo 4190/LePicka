@@ -32,6 +32,7 @@ namespace LePickaProducts
                 containerBuilder.RegisterMediatR(configuration);
                 containerBuilder.RegisterModule<QueryCommandRegistrationModule>();
                 containerBuilder.RegisterModule<DataAccessModule>();
+                containerBuilder.RegisterModule<AutoMapperModule>();
                 containerBuilder.Register(c =>
                 {
                     var dbContextOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
