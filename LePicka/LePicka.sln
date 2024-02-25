@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth", "Auth\Auth.csproj", "{DBE6EDEE-16F7-44FB-B59F-B72B869D6C2B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LePickaProducts.API", "LePickaProducts\LePickaProducts.API.csproj", "{DC29AA7C-25A0-451A-8990-6BFD94562DE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LePickaProducts.API", "LePickaProducts.API\LePickaProducts.API.csproj", "{DC29AA7C-25A0-451A-8990-6BFD94562DE5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LePickaProducts.Infrastructure", "LePickaProducts.Infrastructure\LePickaProducts.Infrastructure.csproj", "{53B14363-9874-48E7-90E0-7D70A02D41DF}"
 EndProject

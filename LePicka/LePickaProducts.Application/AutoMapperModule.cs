@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using AutoMapper;
 using LePickaProducts.Application.Commands.Products;
+using LePickaProducts.Application.Dtos;
 using LePickaProducts.Domain.Products;
 
 namespace LePickaProducts.Application
@@ -13,6 +14,7 @@ namespace LePickaProducts.Application
             {
                 cfg.CreateMap<AddProductRequest, AddProductCommand>();
                 cfg.CreateMap<AddProductCommand, Product>();
+                cfg.CreateMap<Product, ProductDto>();
             })).AsSelf().SingleInstance();
 
             builder.Register(c =>

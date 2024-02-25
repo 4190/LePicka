@@ -1,7 +1,6 @@
 ﻿using LePickaProducts.Infrastructure.Database;
 using LePickaProducts.Domain.Products;
 using LePickaProducts.Infrastructure.DatabaseContext;
-using Microsoft.EntityFrameworkCore;
 
 namespace LePickaProducts.Infrastructure.Domain.Products
 {

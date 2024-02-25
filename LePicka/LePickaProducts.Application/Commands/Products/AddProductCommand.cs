@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
+using LePickaProducts.Application.Dtos;
 using LePickaProducts.Domain.Products;
 using MediatR;
 
 
-namespace LePickaProducts.Application.Commands
+namespace LePickaProducts.Application.Commands.Products
 {
-    public class AddProductCommand : IRequest<Product>
+    public class AddProductCommand : IRequest<ProductDto>
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -13,7 +14,7 @@ namespace LePickaProducts.Application.Commands
         public decimal Price { get; set; }
     }
 
-    public class AddProductCommandHandler : IRequestHandler<AddProductCommand, Product>
+    public class AddProductCommandHandler : IRequestHandler<AddProductCommand, ProductDto>
     {
         private readonly IProductRepository _repository;
         private readonly IMapper _mapper;
@@ -24,11 +25,11 @@ namespace LePickaProducts.Application.Commands
             _mapper = mapper;
         }
 
-        public async Task<Product> Handle(AddProductCommand request, CancellationToken cancellationToken)
+        public async Task<ProductDto> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
             Product prod = _mapper.Map<Product>(request);
 
-            return await _repository.Add(prod);
+            return _mapper.Map<ProductDto>(await _repository.Add(prod));
         }
     }
 }
