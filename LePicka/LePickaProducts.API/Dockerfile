@@ -9,17 +9,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["LePickaProducts/LePickaProducts.csproj", "LePickaProducts/"]
-RUN dotnet restore "./LePickaProducts/./LePickaProducts.csproj"
+COPY ["LePickaProducts.API/LePickaProducts.API.csproj", "LePickaProducts.API/"]
+RUN dotnet restore "./LePickaProducts.API/./LePickaProducts.API.csproj"
 COPY . .
-WORKDIR "/src/LePickaProducts"
-RUN dotnet build "./LePickaProducts.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/LePickaProducts.API"
+RUN dotnet build "./LePickaProducts.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./LePickaProducts.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./LePickaProducts.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "LePickaProducts.dll"]
+ENTRYPOINT ["dotnet", "LePickaProducts.API.dll"]
