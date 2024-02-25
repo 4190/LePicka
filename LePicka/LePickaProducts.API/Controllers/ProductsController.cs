@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using LePickaProducts.Application.Queries.Products;
 using AutoMapper;
 using LePickaProducts.Application.Commands.Products;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LePickaProducts.Controllers
 {
@@ -23,6 +25,7 @@ namespace LePickaProducts.Controllers
         }
 
         [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Test() 
         {
             var products = await _mediator.Send(new GetAllProductsQuery());

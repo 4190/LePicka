@@ -1,11 +1,16 @@
-using Microsoft.EntityFrameworkCore;
-using LePickaProducts.Infrastructure.DatabaseContext;
-using Autofac.Extensions.DependencyInjection;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using LePickaProducts.Application;
+using LePickaProducts.Infrastructure.Database;
+using LePickaProducts.Infrastructure.DatabaseContext;
 using MediatR.Extensions.Autofac.DependencyInjection;
 using MediatR.Extensions.Autofac.DependencyInjection.Builder;
-using LePickaProducts.Infrastructure.Database;
-using LePickaProducts.Application;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 
 namespace LePickaProducts
 {
@@ -19,7 +24,34 @@ namespace LePickaProducts
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(opt =>
+            {
+                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "Products API", Version = "v1" });
+                opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter JWT bearer token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "bearer"
+                });
+
+                opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id= "Bearer"
+                            }
+                        },
+                        new string[]{ }
+                    }
+                });
+            });
 
             var configuration = MediatRConfigurationBuilder
                 .Create(typeof(QueryCommandRegistrationModule).Assembly)
@@ -40,6 +72,19 @@ namespace LePickaProducts
 
                     return new ApplicationDbContext(dbContextOptionsBuilder.Options);
                 }).AsSelf().InstancePerLifetimeScope();
+            });
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTSetting:key"])),
+                    ClockSkew = TimeSpan.Zero
+                };
             });
 
             var app = builder.Build();
