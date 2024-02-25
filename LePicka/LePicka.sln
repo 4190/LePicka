@@ -7,13 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth", "Auth\Auth.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LePickaProducts.API", "LePickaProducts.API\LePickaProducts.API.csproj", "{DC29AA7C-25A0-451A-8990-6BFD94562DE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LePickaProducts.Infrastructure", "LePickaProducts.Infrastructure\LePickaProducts.Infrastructure.csproj", "{53B14363-9874-48E7-90E0-7D70A02D41DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LePickaProducts.Infrastructure", "LePickaProducts.Infrastructure\LePickaProducts.Infrastructure.csproj", "{53B14363-9874-48E7-90E0-7D70A02D41DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LePickaProducts.Domain", "LePickaProducts.Domain\LePickaProducts.Domain.csproj", "{7804BDFF-8AC9-4CAD-90D9-6DEB78F0C089}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LePickaProducts.Domain", "LePickaProducts.Domain\LePickaProducts.Domain.csproj", "{7804BDFF-8AC9-4CAD-90D9-6DEB78F0C089}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LePickaProducts.Application", "LePickaProducts.Application\LePickaProducts.Application.csproj", "{E14747A6-305C-4536-A3CE-F14E675B6A50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LePickaProducts.Application", "LePickaProducts.Application\LePickaProducts.Application.csproj", "{E14747A6-305C-4536-A3CE-F14E675B6A50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LePicka.Shared", "LePicka.Shared\LePicka.Shared.csproj", "{6E8736C5-020C-46AF-8891-A8476BEC1AD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LePicka.Shared", "LePicka.Shared\LePicka.Shared.csproj", "{6E8736C5-020C-46AF-8891-A8476BEC1AD7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Products", "Products", "{0F6E4ACF-CA3E-42A4-BDAB-321B47E17E34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +50,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DC29AA7C-25A0-451A-8990-6BFD94562DE5} = {0F6E4ACF-CA3E-42A4-BDAB-321B47E17E34}
+		{53B14363-9874-48E7-90E0-7D70A02D41DF} = {0F6E4ACF-CA3E-42A4-BDAB-321B47E17E34}
+		{7804BDFF-8AC9-4CAD-90D9-6DEB78F0C089} = {0F6E4ACF-CA3E-42A4-BDAB-321B47E17E34}
+		{E14747A6-305C-4536-A3CE-F14E675B6A50} = {0F6E4ACF-CA3E-42A4-BDAB-321B47E17E34}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24674CB1-F2C2-4611-BAED-73F8ABAD3AD6}
