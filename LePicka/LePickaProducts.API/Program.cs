@@ -3,6 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using LePickaProducts.Application;
 using LePickaProducts.Infrastructure.Database;
 using LePickaProducts.Infrastructure.DatabaseContext;
+using LePickaProducts.Infrastructure.MessageBus;
 using MediatR.Extensions.Autofac.DependencyInjection;
 using MediatR.Extensions.Autofac.DependencyInjection.Builder;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -65,6 +66,7 @@ namespace LePickaProducts
                 containerBuilder.RegisterModule<QueryCommandRegistrationModule>();
                 containerBuilder.RegisterModule<DataAccessModule>();
                 containerBuilder.RegisterModule<AutoMapperModule>();
+                containerBuilder.RegisterModule<MessageBusModule>();
                 containerBuilder.Register(c =>
                 {
                     var dbContextOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();

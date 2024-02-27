@@ -5,6 +5,7 @@ using AutoMapper;
 using LePickaProducts.Application.Commands.Products;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using LePickaProducts.Infrastructure.MessageBus;
 
 namespace LePickaProducts.Controllers
 {
@@ -16,18 +17,21 @@ namespace LePickaProducts.Controllers
         private readonly ILogger<ProductsController> _logger;
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IMessageBusClient _messageBusClient;
 
-        public ProductsController(ILogger<ProductsController> logger, IMediator mediator, IMapper mapper)
+        public ProductsController(ILogger<ProductsController> logger, IMediator mediator, IMapper mapper, IMessageBusClient messageBusClient)
         {
             _logger = logger;
             _mediator = mediator;
             _mapper = mapper;
+            _messageBusClient = messageBusClient;
         }
 
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Test() 
         {
+            _messageBusClient.PublishTestEvent();
             var products = await _mediator.Send(new GetAllProductsQuery());
             return Ok(products);
         }
