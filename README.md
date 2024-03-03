@@ -1,3 +1,4 @@
+# Starting up
 Navigate to LePicka folder (where dockerfiles are) and run   (mind the dot at the end of the command)
 - `docker build -t lepicka-auth -f .\DockerfileAuth .`
 - `docker build -t lepicka-products -f .\DockerfileProducts .`
@@ -20,3 +21,12 @@ Or apply yaml files separately
 - `kubectl apply -f .\mssql-prod-depl.yaml`
 - `kubectl apply -f .\products-depl.yaml`
 - `kubectl apply -f .\auth-depl.yaml`
+
+# Changed something in code?
+If you changed something in code of one of projects rebuild it's docker image with one of commands from Starting Up for respective service. After the docker image is rebuilt run
+`kubectl rollout restart deployment <name of deployment>`  Use name of deployment that is using rebuilt docker image
+
+Run `kubectl get deployments` to see all existing deployments. Check deployment files to make sure which uses the image
+
+# Swagger
+You can enable or disable swagger when deployed in kubernetes by changing it in appsettings.json in container files in app folder or you can change it in project and rebuild image - [Auth](https://github.com/4190/LePicka/blob/master/LePicka/Auth/appsettings.json), [Products](https://github.com/4190/LePicka/blob/master/LePicka/LePickaProducts.API/appsettings.json)
