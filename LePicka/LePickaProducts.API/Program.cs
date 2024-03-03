@@ -71,6 +71,7 @@ namespace LePickaProducts
                 {
                     var dbContextOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
                     dbContextOptionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("ProdsConn"));
+                    Console.WriteLine("Connection string: " + builder.Configuration.GetConnectionString("ProdsConn"));
 
                     return new ApplicationDbContext(dbContextOptionsBuilder.Options);
                 }).AsSelf().InstancePerLifetimeScope();

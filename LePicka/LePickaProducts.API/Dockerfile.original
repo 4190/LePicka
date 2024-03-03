@@ -10,10 +10,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["LePickaProducts.API/LePickaProducts.API.csproj", "LePickaProducts.API/"]
-COPY ["LePickaProducts.Application/LePickaProducts.Application.csproj", "LePickaProducts.Application/"]
-COPY ["LePickaProducts.Domain/LePickaProducts.Domain.csproj", "LePickaProducts.Domain/"]
-COPY ["LePicka.Shared/LePicka.Shared.csproj", "LePicka.Shared/"]
-COPY ["LePickaProducts.Infrastructure/LePickaProducts.Infrastructure.csproj", "LePickaProducts.Infrastructure/"]
 RUN dotnet restore "./LePickaProducts.API/./LePickaProducts.API.csproj"
 COPY . .
 WORKDIR "/src/LePickaProducts.API"

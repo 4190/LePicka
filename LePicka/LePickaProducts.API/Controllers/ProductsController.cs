@@ -10,7 +10,7 @@ using LePickaProducts.Infrastructure.MessageBus;
 namespace LePickaProducts.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class ProductsController : ControllerBase
     {
 
