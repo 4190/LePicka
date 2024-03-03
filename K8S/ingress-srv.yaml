@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-    - host: localhost.com
+    - host: localhost
       http:
         paths:
           - path: /api/accounts
@@ -16,11 +16,11 @@ spec:
               service:
                 name: lepicka-auth-clusterip-srv
                 port:
-                  number: 80
+                  number: 8080
           - path: /api/products
             pathType: Prefix
             backend:
               service:
                 name: lepicka-products-clusterip-srv
                 port:
-                  number: 80
+                  number: 8080
