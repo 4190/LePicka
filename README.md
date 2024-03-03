@@ -4,7 +4,7 @@ Navigate to LePicka folder (where dockerfiles are) and run   (mind the dot at th
 
 If you select different name than **lepicka-auth and/or lepicka-products** you will have to change names in k8s files ([auth-depl.yaml](https://github.com/4190/LePicka/blob/master/K8S/auth-depl.yaml) and [products-depl.yaml](https://github.com/4190/LePicka/blob/master/K8S/products-depl.yaml)) in spec/template/spec/containers/image and assign there the name of created image
 
-Database password fetched from kubernetes secrets. Run this command to create kubernetes secret with password. If you use different name than SA-PASSWORD or different password than Password1! you will have to change it also in [mssql-auth-depl.yaml](https://github.com/4190/LePicka/blob/master/K8S/mssql-auth-depl.yaml) and [mssql-prod-depl.yaml](https://github.com/4190/LePicka/blob/master/K8S/mssql-prod-depl.yaml)
+Database password fetched from kubernetes secrets. Run this command to create kubernetes secret with password. If you use different name than SA-PASSWORD or different password than Password1! you will have to change it also in [mssql-auth-depl.yaml](https://github.com/4190/LePicka/blob/master/K8S/mssql-auth-depl.yaml), [mssql-prod-depl.yaml](https://github.com/4190/LePicka/blob/master/K8S/mssql-prod-depl.yaml) and appsettings.json of projects - [Products](https://github.com/4190/LePicka/blob/master/LePicka/LePickaProducts.API/appsettings.json), [Auth](https://github.com/4190/LePicka/blob/master/LePicka/Auth/appsettings.json)
 - `kubectl create secret generic mssql --from-literal=SA_PASSWORD="Password1!"`
 
 
