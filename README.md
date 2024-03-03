@@ -1,6 +1,6 @@
-Navigate to LePicka folder (where dockerfiles are) and run
-- docker build -t lepicka-auth -f .\DockerfileAuth
-- docker build -t lepicka-products -f .\DockerfileProducts
+Navigate to LePicka folder (where dockerfiles are) and run   (mind the dot at the end of the command)
+- docker build -t lepicka-auth -f .\DockerfileAuth .
+- docker build -t lepicka-products -f .\DockerfileProducts .
 
 If you select different name than **lepicka-auth and/or lepicka-products** you will have to change names in k8s files (auth-depl.yaml and products-depl.yaml) in spec/template/spec/containers/image and assign there the name of created image
 
