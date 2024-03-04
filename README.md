@@ -22,6 +22,11 @@ Or apply yaml files separately
 - `kubectl apply -f .\products-depl.yaml`
 - `kubectl apply -f .\auth-depl.yaml`
 
+You can send GET requests to 
+- http://localhost/api/accounts/test (auth service)
+- http://localhost/api/products/test (produicts service)
+to verify services are working. It will also send test message to RabbitMQ so you can check in RabbitMQ management if it is sent.
+
 # Changed something in code?
 If you changed something in code of one of projects rebuild it's docker image with one of commands from Starting Up for respective service. After the docker image is rebuilt run
 `kubectl rollout restart deployment <name of deployment>`  Use name of deployment that is using rebuilt docker image
