@@ -25,6 +25,7 @@ Or apply yaml files separately
 You can send GET requests to 
 - http://localhost/api/accounts/test (auth service)
 - http://localhost/api/products/test (produicts service)
+
 to verify services are working. It will also send test message to RabbitMQ so you can check in RabbitMQ management if it is sent.
 
 # Changed something in code?
