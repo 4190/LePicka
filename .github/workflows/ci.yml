@@ -26,3 +26,19 @@ jobs:
       run: dotnet build --no-restore LePicka
     - name: Test
       run: dotnet test --no-build --verbosity normal LePicka
+    - name: Build docker images and push to DockerHub
+      uses: mr-smithers-excellent/docker-build-push@v6
+      with:
+          image: saeqis/lepicka
+          dockerfile: LePicka/DockerfileAuth
+          tags: auth
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Push Docker image for Service 2
+      uses: mr-smithers-excellent/docker-build-push@v6
+      with:
+          image: saeqis/lepicka
+          dockerfile: LePicka/DockerfileProducts
+          tags: products
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
