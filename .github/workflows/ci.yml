@@ -30,6 +30,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
           image: saeqis/lepicka
+          registry: docker.io
           dockerfile: LePicka/DockerfileAuth
           tags: auth
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -38,6 +39,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
           image: saeqis/lepicka
+          registry: docker.io
           dockerfile: LePicka/DockerfileProducts
           tags: products
           username: ${{ secrets.DOCKER_USERNAME }}
