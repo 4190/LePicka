@@ -33,6 +33,7 @@ jobs:
           image: saeqis/lepicka
           registry: docker.io
           dockerfile: LePicka/DockerfileAuth
+          multiPlatform: true
           platform: linux/amd64,linux/arm64,linux/arm64/v8
           tags: auth
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -44,6 +45,7 @@ jobs:
           image: saeqis/lepicka
           registry: docker.io
           dockerfile: LePicka/DockerfileProducts
+          multiPlatform: true
           platform: linux/amd64,linux/arm64,linux/arm64/v8
           tags: products
           username: ${{ secrets.DOCKER_USERNAME }}
