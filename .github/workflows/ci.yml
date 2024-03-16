@@ -33,6 +33,7 @@ jobs:
           image: saeqis/lepicka
           registry: docker.io
           dockerfile: LePicka/DockerfileAuth
+          platform: linux/amd64,linux/arm64,linux/arm64/v8
           tags: auth
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
@@ -43,6 +44,7 @@ jobs:
           image: saeqis/lepicka
           registry: docker.io
           dockerfile: LePicka/DockerfileProducts
+          platform: linux/amd64,linux/arm64,linux/arm64/v8
           tags: products
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
