@@ -29,6 +29,7 @@ jobs:
     - name: Build docker images and push to DockerHub
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
+          directory: ./LePicka
           image: saeqis/lepicka
           registry: docker.io
           dockerfile: LePicka/DockerfileAuth
@@ -38,9 +39,10 @@ jobs:
     - name: Push Docker image for Products service
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
+          directory: ./LePicka
           image: saeqis/lepicka
           registry: docker.io
-          dockerfile: LePicka//DockerfileProducts
+          dockerfile: LePicka/DockerfileProducts
           tags: products
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
