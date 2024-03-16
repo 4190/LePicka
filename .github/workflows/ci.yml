@@ -31,16 +31,16 @@ jobs:
       with:
           image: saeqis/lepicka
           registry: docker.io
-          dockerfile: LePicka/DockerfileAuth
+          dockerfile: LePicka/Auth/Dockerfile
           tags: auth
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Push Docker image for Service 2
+    - name: Push Docker image for Products service
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
           image: saeqis/lepicka
           registry: docker.io
-          dockerfile: LePicka/DockerfileProducts
+          dockerfile: LePicka/LePickaProducts.API/Dockerfile
           tags: products
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
