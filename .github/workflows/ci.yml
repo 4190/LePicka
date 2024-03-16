@@ -29,6 +29,7 @@ jobs:
     - name: Build docker images and push to DockerHub
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
+          run: echo "$(ls)"
           image: saeqis/lepicka
           registry: docker.io
           dockerfile: LePicka/Auth/Dockerfile
