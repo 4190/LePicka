@@ -32,7 +32,7 @@ jobs:
           directory: ./Lepicka
           image: saeqis/lepicka
           registry: docker.io
-          dockerfile: DockerfileAuth
+          dockerfile: ./DockerfileAuth
           tags: auth
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
@@ -42,7 +42,7 @@ jobs:
           directory: ./Lepicka
           image: saeqis/lepicka
           registry: docker.io
-          dockerfile: DockerfileProducts
+          dockerfile: ./DockerfileProducts
           tags: products
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
