@@ -26,18 +26,7 @@ jobs:
       run: dotnet build --no-restore LePicka
     - name: Test
       run: dotnet test --no-build --verbosity normal LePicka
-    - name: Build docker images and push to DockerHub
-      uses: mr-smithers-excellent/docker-build-push@v6
-      with:
-          directory: ./LePicka
-          image: saeqis/lepicka
-          registry: docker.io
-          dockerfile: LePicka/DockerfileAuth
-          platform: linux/amd64
-          tags: auth
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Build docker image for rpi and push to DockerHub
+    - name: Build docker image for rpi for Auth service and push to DockerHub
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
           directory: ./LePicka
@@ -48,18 +37,7 @@ jobs:
           tags: auth-pi
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Push Docker image for Products service
-      uses: mr-smithers-excellent/docker-build-push@v6
-      with:
-          directory: ./LePicka
-          image: saeqis/lepicka
-          registry: docker.io
-          dockerfile: LePicka/DockerfileProducts
-          platform: linux/amd64
-          tags: products
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Push Docker image for pi for Products service
+    - name: Push Docker image for pi for Products service and push to DockerHub
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
           directory: ./LePicka
