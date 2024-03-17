@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: lepicka-auth-depl
+spec:
+    replicas: 1
+    selector: 
+        matchLabels: 
+            app: lepicka-auth
+    template:
+        metadata:
+            labels:
+                app: lepicka-auth
+        spec:
+            containers:
+                - name: lepicka-auth
+                  image: lepicka-auth
+                  imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: lepicka-auth-clusterip-srv
+spec:
+    type: ClusterIP
+    selector:
+        app: lepicka-auth
+    ports:
+        - name: lepicka-auth
+          protocol: TCP
+          port: 8080
+          targetPort: 8080
