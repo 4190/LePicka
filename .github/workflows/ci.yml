@@ -48,3 +48,9 @@ jobs:
           tags: products-pi
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: show items
+      run: | 
+            echo "$(ls)"
+            cd K8S/Deployed
+            echo "$(ls)"
+            echo "$(pwd)"
