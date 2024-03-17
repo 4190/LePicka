@@ -50,7 +50,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
     - name: show items
       run: | 
-            echo "$(ls)"
             cd K8S/Deployed
-            echo "$(ls)"
-            echo "$(pwd)"
+            sudo kubectl rollout restart deployment lepicka-products-depl
+            sudo kubectl rollout restart deployment lepicka-auth-depl
+            sudo kubectl apply -f .
