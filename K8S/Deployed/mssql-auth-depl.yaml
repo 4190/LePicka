@@ -34,7 +34,7 @@ spec:
                     - name: MSSQL_LCID
                       value: "1033"
                     - name: DISABLE_JEMALLOC
-                      value: true
+                      value: 'true'
                   volumeMounts: 
                     - mountPath: /var/opt/mssql/data
                       name: mssqldb
