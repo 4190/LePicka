@@ -15,12 +15,12 @@ spec:
             containers:
                 - name: lepicka-products
                   image: saeqis/lepicka:products-pi
-            env: 
-                - name: CONNECTION_STRING_PASSWORD
-                  valueFrom: 
-                    secretKeyRef:
-                        name: db-password-products
-                        key: products
+                  env: 
+                    - name: CONNECTION_STRING_PASSWORD
+                      valueFrom: 
+                        secretKeyRef:
+                            name: db-password-products
+                            key: products
 ---
 apiVersion: v1
 kind: Service
