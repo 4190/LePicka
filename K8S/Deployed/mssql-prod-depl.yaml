@@ -14,7 +14,7 @@ spec:
         spec: 
             containers: 
                 - name: mssql-prod
-                  image: mcr.microsoft.com/azure-sql-edge:2.0.0
+                  image: cagrin/azure-sql-edge-arm64:latest
                   ports:
                     - containerPort: 1433
                   env: 
