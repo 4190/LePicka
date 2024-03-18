@@ -22,7 +22,8 @@ namespace LePickaProducts
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            Console.WriteLine(">>?prods");
+            Console.WriteLine(Environment.GetEnvironmentVariable("CONNECTION_STRING_PASSWORD"));
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(opt =>
