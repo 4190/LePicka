@@ -33,6 +33,8 @@ spec:
                       value: "SQL_Latin1_General_CP1_CI_AS"
                     - name: MSSQL_LCID
                       value: "1033"
+                    - name: DISABLE_JEMALLOC
+                      value: true
                   volumeMounts: 
                     - mountPath: /var/opt/mssql/data
                       name: mssqldb
