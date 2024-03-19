@@ -22,8 +22,6 @@ namespace LePickaProducts
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            Console.WriteLine(">>?prods");
-            Console.WriteLine(Environment.GetEnvironmentVariable("CONNECTION_STRING_PASSWORD"));
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(opt =>
@@ -71,8 +69,26 @@ namespace LePickaProducts
                 containerBuilder.Register(c =>
                 {
                     var dbContextOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-                    dbContextOptionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("ProdsConn"));
-                    Console.WriteLine("Connection string: " + builder.Configuration.GetConnectionString("ProdsConn"));
+                    if (builder.Environment.IsProduction())
+                    {
+                        Console.WriteLine(">>?products");
+
+                        StringBuilder sb = new StringBuilder();
+                        sb.Append(builder.Configuration.GetConnectionString("ProdsConn"))
+                            .Append(Environment.GetEnvironmentVariable("CONNECTION_STRING_CREDS"));
+
+                        Console.WriteLine(sb.ToString());
+
+                        dbContextOptionsBuilder.UseSqlServer(sb.ToString());
+                    }
+
+                    else if (builder.Environment.IsDevelopment())
+                    {
+                        dbContextOptionsBuilder
+                        .UseSqlServer(builder.Configuration.GetConnectionString("ProdsConn"));
+                    }
+
+                    
 
                     return new ApplicationDbContext(dbContextOptionsBuilder.Options);
                 }).AsSelf().InstancePerLifetimeScope();

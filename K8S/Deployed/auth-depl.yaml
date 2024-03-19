@@ -16,11 +16,11 @@ spec:
                 - name: lepicka-auth
                   image: saeqis/lepicka:auth-pi
                   env: 
-                    - name: CONNECTION_STRING_PASSWORD
+                    - name: CONNECTION_STRING_CREDS
                       valueFrom: 
                         secretKeyRef:
-                            name: db-password-auth
-                            key: auth
+                            name: db-creds
+                            key: auth-db
 ---
 apiVersion: v1
 kind: Service

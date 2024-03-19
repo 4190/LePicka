@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
@@ -19,12 +21,33 @@ namespace Auth
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            Console.WriteLine(">>?auth");
-            Console.WriteLine(Environment.GetEnvironmentVariable("CONNECTION_STRING_PASSWORD"));
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("AuthConn")));
+            if (builder.Environment.IsProduction()) 
+            {
+                Console.WriteLine(">>?auth");
+
+                StringBuilder sb = new StringBuilder();
+                sb.Append(builder.Configuration.GetConnectionString("AuthConn"))
+                    .Append(Environment.GetEnvironmentVariable("CONNECTION_STRING_CREDS"));
+
+                Console.WriteLine(sb.ToString());
+
+                builder
+                    .Services
+                    .AddDbContext<ApplicationDbContext>
+                    (opt => opt.UseSqlServer(sb.ToString()));
+            }
+            
+            else if(builder.Environment.IsDevelopment())
+            { 
+                builder
+                    .Services
+                    .AddDbContext<ApplicationDbContext>
+                    (opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("AuthConn"))); 
+            }
+
             builder.Services.AddSwaggerGen();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
