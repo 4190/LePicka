@@ -76,7 +76,6 @@ namespace Auth
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (bool.Parse(builder.Configuration["UseSwagger"]!))
             {
                 app.UseSwagger();
