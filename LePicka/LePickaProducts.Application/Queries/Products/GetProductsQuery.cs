@@ -25,10 +25,7 @@ namespace LePickaProducts.Application.Queries.Products
         public async Task<ProductDto> Handle(GetProductQuery request, CancellationToken cancellationToken)
         {
             var product = await _repository.Get(request.Id);
-            return _mapper.Map<ProductDto>(products);
+            return _mapper.Map<ProductDto>(product);
         }
     }
-
-
-
 }
