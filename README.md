@@ -38,3 +38,4 @@ After rebuild and and restart the old container will remain exited and old image
 
 # Swagger
 You can enable or disable swagger when deployed in kubernetes by changing it in appsettings.json in container files in app folder or you can change it in project and rebuild image - [Auth](https://github.com/4190/LePicka/blob/master/LePicka/Auth/appsettings.json), [Products](https://github.com/4190/LePicka/blob/master/LePicka/LePickaProducts.API/appsettings.json)
+.
