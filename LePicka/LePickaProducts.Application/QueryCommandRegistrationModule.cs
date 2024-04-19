@@ -9,6 +9,7 @@ namespace LePickaProducts.Application
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<GetAllProductsQuery>().AsImplementedInterfaces();
+            builder.RegisterType<GetProductsQuery>().AsImplementedInterfaces();
         }
     }
 }

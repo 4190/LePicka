@@ -44,5 +44,22 @@ namespace LePickaProducts.Controllers
 
             return Ok(prod);
         }
+
+        [HttpGet]
+       
+        public async Task<ActionResult> Get(int id)
+        {
+
+            var product = await _mediator.Send(new GetProductQuery() { Id = id });
+            return Ok(product);
+        }
+        [HttpGet]
+
+        public async Task<ActionResult> GetAll()
+        {
+
+            var products = await _mediator.Send(new GetAllProductsQuery());
+            return Ok(products);
+        }
     }
 }
