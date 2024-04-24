@@ -29,7 +29,7 @@ namespace LePickaProducts.Controllers
 
         [HttpGet]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> Test() 
+        public async Task<ActionResult> Test()
         {
             _messageBusClient.PublishTestEvent();
             var products = await _mediator.Send(new GetAllProductsQuery());
@@ -44,8 +44,8 @@ namespace LePickaProducts.Controllers
 
             return Ok(prod);
         }
-
-        [HttpGet]
+        
+        [HttpGet("{id}")]
        
         public async Task<ActionResult> Get(int id)
         {
@@ -60,6 +60,15 @@ namespace LePickaProducts.Controllers
 
             var products = await _mediator.Send(new GetAllProductsQuery());
             return Ok(products);
+        }
+
+        [HttpDelete("{id}")]
+
+        public async Task<ActionResult> Delete(int id)
+        {
+
+            var product = await _mediator.Send(new DeleteProductCommand() { Id = id });
+            return Ok(product);
         }
     }
 }
