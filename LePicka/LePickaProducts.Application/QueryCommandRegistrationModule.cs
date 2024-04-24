@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using LePickaProducts.Application.Commands.Products;
 using LePickaProducts.Application.Queries.Products;
 
 
@@ -10,6 +11,8 @@ namespace LePickaProducts.Application
         {
             builder.RegisterType<GetAllProductsQuery>().AsImplementedInterfaces();
             builder.RegisterType<GetProductQuery>().AsImplementedInterfaces();
+            builder.RegisterType<EditProductCommand>().AsImplementedInterfaces();
+           
         }
     }
 }
