@@ -45,9 +45,15 @@ namespace LePickaProducts.Controllers
 
             return Ok(prod);
         }
+<<<<<<< HEAD
 
         [HttpGet]
 
+=======
+        
+        [HttpGet("{id}")]
+       
+>>>>>>> master
         public async Task<ActionResult> Get(int id)
         {
 
@@ -63,6 +69,7 @@ namespace LePickaProducts.Controllers
             return Ok(products);
         }
 
+<<<<<<< HEAD
         [HttpPut]
         public async Task<ActionResult> Edit(ProductDto productdto)
         {
@@ -70,6 +77,15 @@ namespace LePickaProducts.Controllers
             var prod = await _mediator.Send(command);
 
             return Ok(prod);
+=======
+        [HttpDelete("{id}")]
+
+        public async Task<ActionResult> Delete(int id)
+        {
+
+            var product = await _mediator.Send(new DeleteProductCommand() { Id = id });
+            return Ok(product);
+>>>>>>> master
         }
     }
 }

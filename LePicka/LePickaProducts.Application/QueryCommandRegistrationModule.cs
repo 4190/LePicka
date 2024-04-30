@@ -3,6 +3,7 @@ using LePickaProducts.Application.Commands.Products;
 using LePickaProducts.Application.Queries.Products;
 
 
+
 namespace LePickaProducts.Application
 {
     public class QueryCommandRegistrationModule : Module
@@ -11,8 +12,12 @@ namespace LePickaProducts.Application
         {
             builder.RegisterType<GetAllProductsQuery>().AsImplementedInterfaces();
             builder.RegisterType<GetProductQuery>().AsImplementedInterfaces();
+<<<<<<< HEAD
             builder.RegisterType<EditProductCommand>().AsImplementedInterfaces();
            
+=======
+            builder.RegisterType<DeleteProductCommand>().AsImplementedInterfaces();
+>>>>>>> master
         }
     }
 }
