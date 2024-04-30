@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using LePickaProducts.Infrastructure.Dtos;
+using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 using System.Text;
+using System.Text.Json;
 
 namespace LePickaProducts.Infrastructure.MessageBus
 {
@@ -54,6 +56,13 @@ namespace LePickaProducts.Infrastructure.MessageBus
 
             _channel.BasicPublish(exchange: "trigger", routingKey: "", basicProperties: null, body: body);
             System.Diagnostics.Debug.WriteLine($"--> We have sent message: {message}");
+        }
+
+        public void PublishProductEdit(AddEditMessageProductDto addEditMessageProductDto) 
+        {
+            addEditMessageProductDto.EventType = "Product_Edit";
+            var message = JsonSerializer.Serialize(addEditMessageProductDto);
+            SendMessageIfRabbitMQConnectionOpen(message);
         }
 
         private void SendMessageIfRabbitMQConnectionOpen(string message)
