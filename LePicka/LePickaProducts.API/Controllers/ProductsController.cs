@@ -6,6 +6,7 @@ using LePickaProducts.Application.Commands.Products;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using LePickaProducts.Infrastructure.MessageBus;
+using LePickaProducts.Application.Dtos;
 
 namespace LePickaProducts.Controllers
 {
@@ -44,9 +45,15 @@ namespace LePickaProducts.Controllers
 
             return Ok(prod);
         }
+<<<<<<< HEAD
+
+        [HttpGet]
+
+=======
         
         [HttpGet("{id}")]
        
+>>>>>>> master
         public async Task<ActionResult> Get(int id)
         {
 
@@ -62,6 +69,15 @@ namespace LePickaProducts.Controllers
             return Ok(products);
         }
 
+<<<<<<< HEAD
+        [HttpPut]
+        public async Task<ActionResult> Edit(ProductDto productdto)
+        {
+            EditProductCommand command = _mapper.Map<EditProductCommand>(productdto);
+            var prod = await _mediator.Send(command);
+
+            return Ok(prod);
+=======
         [HttpDelete("{id}")]
 
         public async Task<ActionResult> Delete(int id)
@@ -69,6 +85,7 @@ namespace LePickaProducts.Controllers
 
             var product = await _mediator.Send(new DeleteProductCommand() { Id = id });
             return Ok(product);
+>>>>>>> master
         }
     }
 }

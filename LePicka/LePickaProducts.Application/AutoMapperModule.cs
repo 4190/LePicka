@@ -15,6 +15,8 @@ namespace LePickaProducts.Application
                 cfg.CreateMap<AddProductRequest, AddProductCommand>();
                 cfg.CreateMap<AddProductCommand, Product>();
                 cfg.CreateMap<Product, ProductDto>();
+                cfg.CreateMap<EditProductCommand, Product>();
+                cfg.CreateMap<ProductDto, EditProductCommand>();
             })).AsSelf().SingleInstance();
 
             builder.Register(c =>
