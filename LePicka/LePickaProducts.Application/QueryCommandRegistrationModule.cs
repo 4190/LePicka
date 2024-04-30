@@ -12,12 +12,8 @@ namespace LePickaProducts.Application
         {
             builder.RegisterType<GetAllProductsQuery>().AsImplementedInterfaces();
             builder.RegisterType<GetProductQuery>().AsImplementedInterfaces();
-<<<<<<< HEAD
             builder.RegisterType<EditProductCommand>().AsImplementedInterfaces();
-           
-=======
             builder.RegisterType<DeleteProductCommand>().AsImplementedInterfaces();
->>>>>>> master
         }
     }
 }
