@@ -12,7 +12,6 @@ namespace LePickaProducts.Application
         {
             builder.Register(context => new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<AddProductRequest, AddProductCommand>();
                 cfg.CreateMap<AddProductCommand, Product>();
                 cfg.CreateMap<Product, ProductDto>();
                 cfg.CreateMap<EditProductCommand, Product>();
