@@ -52,7 +52,7 @@ namespace LePickaProducts.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(AddProductCommand command)
         {
-            ProductDto products = await _mediator.Send(command);
+            ProductResponse products = await _mediator.Send(command);
             return Ok(products);
         }
 
