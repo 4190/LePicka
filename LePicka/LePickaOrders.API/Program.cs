@@ -1,20 +1,18 @@
 using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using LePickaProducts.Application;
-using LePickaProducts.Application.Queries.Products;
-using LePickaProducts.Infrastructure.Database;
-using LePickaProducts.Infrastructure.DatabaseContext;
-using LePickaProducts.Infrastructure.MessageBus;
-using MediatR.Extensions.Autofac.DependencyInjection;
-using MediatR.Extensions.Autofac.DependencyInjection.Builder;
+using LePickaOrders.Application.Queries.Products;
+using LePickaOrders.Application;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using MediatR.Extensions.Autofac.DependencyInjection.Builder;
+using MediatR.Extensions.Autofac.DependencyInjection;
+using Autofac.Extensions.DependencyInjection;
+using LePickaOrders.Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 
-namespace LePickaProducts
+namespace LePickaOrders.API
 {
     public class Program
     {
@@ -23,7 +21,9 @@ namespace LePickaProducts
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
             builder.Services.AddControllers();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(opt =>
             {
@@ -65,17 +65,16 @@ namespace LePickaProducts
                 containerBuilder.RegisterMediatR(configuration);
                 containerBuilder.RegisterModule<DataAccessModule>();
                 containerBuilder.RegisterModule<AutoMapperModule>();
-                containerBuilder.RegisterModule<MessageBusModule>();
                 containerBuilder.Register(c =>
                 {
                     var dbContextOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
                     if (builder.Environment.IsProduction())
                     {
-                        Console.WriteLine(">>?products");
+                        Console.WriteLine(">>?orders");
 
                         StringBuilder sb = new StringBuilder();
-                        sb.Append(builder.Configuration.GetConnectionString("ProdsConn"))
-                            .Append(Environment.GetEnvironmentVariable("CONNECTION_STRING_CREDS"));
+                        sb.Append(builder.Configuration.GetConnectionString("DbConn")) //todo prod conn string
+                            .Append(Environment.GetEnvironmentVariable("CONNECTION_STRING_CREDS")); //TODO on server
 
                         Console.WriteLine(sb.ToString());
 
@@ -85,14 +84,16 @@ namespace LePickaProducts
                     else if (builder.Environment.IsDevelopment())
                     {
                         dbContextOptionsBuilder
-                        .UseSqlServer(builder.Configuration.GetConnectionString("ProdsConn"));
+                        .UseSqlServer(builder.Configuration.GetConnectionString("DbConn"));
                     }
 
-                    
+
 
                     return new ApplicationDbContext(dbContextOptionsBuilder.Options);
                 }).AsSelf().InstancePerLifetimeScope();
             });
+
+
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
@@ -110,16 +111,16 @@ namespace LePickaProducts
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (bool.Parse(builder.Configuration["UseSwagger"]!))
+            if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();
+            PrepPopulation(app);
 
             app.UseAuthorization();
-            PrepPopulation(app);
 
 
             app.MapControllers();
