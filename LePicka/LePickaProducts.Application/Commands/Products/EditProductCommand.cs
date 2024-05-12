@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using LePickaProducts.Application.Dtos;
 using LePickaProducts.Domain.Products;
 using MediatR;
 
 namespace LePickaProducts.Application.Commands.Products;
 
-        public class EditProductCommand : IRequest<ProductDto>
+        public class EditProductCommand : IRequest<ProductResponse>
         {
             public int Id { get; set; }
             public string Name { get; set; }
@@ -19,21 +20,34 @@ namespace LePickaProducts.Application.Commands.Products;
             public decimal Price { get; set; }
         }
 
-        public class EditProductCommandHandler : IRequestHandler<EditProductCommand, ProductDto>
+        public class EditProductCommandHandler : IRequestHandler<EditProductCommand, ProductResponse>
         {
             private readonly IProductRepository _repository;
             private readonly IMapper _mapper;
+            private readonly IValidator<EditProductCommand> _validator;
 
-            public EditProductCommandHandler(IProductRepository repository, IMapper mapper)
+            public EditProductCommandHandler(IProductRepository repository, IMapper mapper, IValidator<EditProductCommand> validator)
             {
                 _repository = repository;
                 _mapper = mapper;
+                _validator = validator;
             }
 
-            public async Task<ProductDto> Handle(EditProductCommand request, CancellationToken cancellationToken)
+            public async Task<ProductResponse> Handle(EditProductCommand request, CancellationToken cancellationToken)
             {
-                Product prod = _mapper.Map<Product>(request);
 
-                return _mapper.Map<ProductDto>(await _repository.Update(prod));
+                var validationResult = await _validator.ValidateAsync(request);
+
+                if (validationResult.IsValid)
+                {
+                    Product prod = _mapper.Map<Product>(request);
+                    return _mapper.Map<ProductResponse>(await _repository.Update(prod));
+                }
+                else
+                {
+                    ProductResponse response = _mapper.Map<ProductResponse>(validationResult);
+
+                    return response;
+                }
             }
         }

@@ -5,6 +5,7 @@ using AutoMapper;
 using LePickaProducts.Application.Commands.Products;
 using LePickaProducts.Infrastructure.MessageBus;
 using LePickaProducts.Application.Dtos;
+using LePickaProducts.Domain.Products;
 
 namespace LePickaProducts.Controllers
 {
@@ -38,33 +39,36 @@ namespace LePickaProducts.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(int id)
         {
-
-            var product = await _mediator.Send(new GetProductQuery() { Id = id });
+            ProductDto product = await _mediator.Send(new GetProductQuery() { Id = id });
             return Ok(product);
         }
-        [HttpGet]
 
+        [HttpGet]
         public async Task<ActionResult> GetAll()
         {
+            List<ProductDto> products = await _mediator.Send(new GetAllProductsQuery());
+            return Ok(products);
+        }
 
-            var products = await _mediator.Send(new GetAllProductsQuery());
+        [HttpPost]
+        public async Task<ActionResult> Create(AddProductCommand command)
+        {
+            ProductResponse products = await _mediator.Send(command);
             return Ok(products);
         }
 
         [HttpPut]
-        public async Task<ActionResult> Edit(ProductDto productdto)
+        public async Task<ActionResult> Edit(EditProductCommand command)
         {
-            EditProductCommand command = _mapper.Map<EditProductCommand>(productdto);
-            var prod = await _mediator.Send(command);
-            _messageBusClient.PublishProductEdit(prod);
-            return Ok(prod);
+            ProductResponse product = await _mediator.Send(command);
+            _messageBusClient.PublishProductEdit(product.Product);
+            return Ok(product.Product);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-
-            var product = await _mediator.Send(new DeleteProductCommand() { Id = id });
+            ProductDto product = await _mediator.Send(new DeleteProductCommand() { Id = id });
             return Ok(product);
         }
     }

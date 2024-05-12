@@ -1,7 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using LePickaProducts.Application;
 using LePickaProducts.Application.Queries.Products;
+using LePickaProducts.Application.Modules;
 using LePickaProducts.Infrastructure.Database;
 using LePickaProducts.Infrastructure.DatabaseContext;
 using LePickaProducts.Infrastructure.MessageBus;
@@ -63,6 +63,7 @@ namespace LePickaProducts
             builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
             {
                 containerBuilder.RegisterMediatR(configuration);
+                containerBuilder.RegisterModule<FluentValidationModule>();
                 containerBuilder.RegisterModule<DataAccessModule>();
                 containerBuilder.RegisterModule<AutoMapperModule>();
                 containerBuilder.RegisterModule<MessageBusModule>();
