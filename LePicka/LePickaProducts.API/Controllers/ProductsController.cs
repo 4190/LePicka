@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using LePickaProducts.Application.Queries.Products;
 using AutoMapper;
 using LePickaProducts.Application.Commands.Products;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using LePickaProducts.Infrastructure.MessageBus;
 using LePickaProducts.Application.Dtos;
 
@@ -35,15 +33,6 @@ namespace LePickaProducts.Controllers
             _messageBusClient.PublishTestEvent();
             var products = await _mediator.Send(new GetAllProductsQuery());
             return Ok(products);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> TestAdd([FromBody] AddProductRequest request)
-        {
-            AddProductCommand command = _mapper.Map<AddProductCommand>(request);
-            var prod = await _mediator.Send(command);
-
-            return Ok(prod);
         }
       
         [HttpGet("{id}")]

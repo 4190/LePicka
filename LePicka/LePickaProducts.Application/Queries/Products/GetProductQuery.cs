@@ -3,7 +3,6 @@ using LePickaProducts.Application.Dtos;
 using LePickaProducts.Domain.Products;
 using MediatR;
 
-
 namespace LePickaProducts.Application.Queries.Products
 {
     public class GetProductQuery : IRequest<ProductDto>
