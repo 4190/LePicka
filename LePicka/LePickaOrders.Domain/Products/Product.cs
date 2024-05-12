@@ -1,10 +1,12 @@
-﻿namespace LePickaProducts.Application.Dtos
+﻿using LePicka.Shared.Repository;
+
+namespace LePickaOrders.Domain.Products
 {
-    public class ProductDto
+    public class Product : IEntity
     {
         public int Id { get; set; }
+        public int ExternalId { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
         public string Category { get; set; }
         public decimal Price { get; set; }
     }

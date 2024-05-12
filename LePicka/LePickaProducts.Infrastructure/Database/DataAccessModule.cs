@@ -11,8 +11,6 @@ namespace LePickaProducts.Infrastructure.Database
             builder.RegisterType<EfCoreProductsRepository>()
                 .As<IProductRepository>()
                 .InstancePerLifetimeScope();
-
-
         }
     }
 }

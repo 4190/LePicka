@@ -11,8 +11,6 @@ namespace LePickaProducts.Infrastructure.MessageBus
             builder.RegisterType<MessageBusClient>()
                 .As<IMessageBusClient>()
                 .InstancePerLifetimeScope();
-
-
         }
     }
 }

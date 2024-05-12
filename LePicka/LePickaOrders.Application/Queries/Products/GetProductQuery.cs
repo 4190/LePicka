@@ -1,21 +1,21 @@
 ﻿using AutoMapper;
-using LePickaProducts.Application.Dtos;
-using LePickaProducts.Domain.Products;
+using LePickaOrders.Application.Dtos;
+using LePickaOrders.Domain.Products;
 using MediatR;
 
-namespace LePickaProducts.Application.Queries.Products
+namespace LePickaOrders.Application.Queries.Products
 {
     public class GetProductQuery : IRequest<ProductDto>
     {
-      public int Id { get; set; }
+        public int Id { get; set; }
     }
 
     public class GetProductQueryHandler : IRequestHandler<GetProductQuery, ProductDto>
     {
-        private readonly IProductRepository _repository;
+        private readonly IProductsRepository _repository;
         private readonly IMapper _mapper;
 
-        public GetProductQueryHandler(IProductRepository repository, IMapper mapper)
+        public GetProductQueryHandler(IProductsRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
