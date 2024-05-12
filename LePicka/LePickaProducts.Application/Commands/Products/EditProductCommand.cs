@@ -26,10 +26,11 @@ namespace LePickaProducts.Application.Commands.Products;
             private readonly IMapper _mapper;
             private readonly IValidator<EditProductCommand> _validator;
 
-            public EditProductCommandHandler(IProductRepository repository, IMapper mapper)
+            public EditProductCommandHandler(IProductRepository repository, IMapper mapper, IValidator<EditProductCommand> validator)
             {
                 _repository = repository;
                 _mapper = mapper;
+                _validator = validator;
             }
 
             public async Task<ProductResponse> Handle(EditProductCommand request, CancellationToken cancellationToken)

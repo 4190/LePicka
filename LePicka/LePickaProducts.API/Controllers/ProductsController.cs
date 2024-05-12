@@ -5,6 +5,7 @@ using AutoMapper;
 using LePickaProducts.Application.Commands.Products;
 using LePickaProducts.Infrastructure.MessageBus;
 using LePickaProducts.Application.Dtos;
+using LePickaProducts.Domain.Products;
 
 namespace LePickaProducts.Controllers
 {
@@ -59,9 +60,9 @@ namespace LePickaProducts.Controllers
         [HttpPut]
         public async Task<ActionResult> Edit(EditProductCommand command)
         {
-            ProductDto prod = await _mediator.Send(command);
-            _messageBusClient.PublishProductEdit(prod);
-            return Ok(prod);
+            ProductResponse product = await _mediator.Send(command);
+            _messageBusClient.PublishProductEdit(product.Product);
+            return Ok(product.Product);
         }
 
         [HttpDelete("{id}")]
