@@ -1,6 +1,5 @@
 using Autofac;
 using LePickaOrders.Application.Queries.Products;
-using LePickaOrders.Application;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -11,6 +10,8 @@ using MediatR.Extensions.Autofac.DependencyInjection;
 using Autofac.Extensions.DependencyInjection;
 using LePickaOrders.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
+using LePickaOrders.Application.Modules;
+using LePickaOrders.Infrastructure.MessageBus;
 
 namespace LePickaOrders.API
 {
@@ -27,7 +28,7 @@ namespace LePickaOrders.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(opt =>
             {
-                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "Products API", Version = "v1" });
+                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "Orders API", Version = "v1" });
                 opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
@@ -65,6 +66,7 @@ namespace LePickaOrders.API
                 containerBuilder.RegisterMediatR(configuration);
                 containerBuilder.RegisterModule<DataAccessModule>();
                 containerBuilder.RegisterModule<AutoMapperModule>();
+                containerBuilder.RegisterModule<MessageBusModule>();
                 containerBuilder.Register(c =>
                 {
                     var dbContextOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();

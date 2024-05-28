@@ -3,7 +3,6 @@ using LePickaProducts.Application.Dtos;
 using LePickaProducts.Domain.Products;
 using MediatR;
 
-
 namespace LePickaProducts.Application.Queries.Products
 {
     public class GetAllProductsQuery : IRequest<List<ProductDto>>
@@ -30,7 +29,4 @@ namespace LePickaProducts.Application.Queries.Products
             return _mapper.Map<List<ProductDto>>(products);
         }
     }
-
-
-
 }
