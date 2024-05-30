@@ -1,14 +1,12 @@
-﻿using LePicka.Shared.Repository;
-
-namespace LePickaOrders.Domain.Users
+﻿namespace LePickaOrders.Application.Dtos.EventDtos
 {
-    public class User : IEntity
+    public class AuthUserAddedDto
     {
-        public int Id { get; set; }
-        public string ExternalId { get; set; }
+        public string Id { get; set; }   //original microservice's entity ID
         public string UserName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string DataSourceMicroserviceName { get; set; }
+        public string Event { get; set; }
     }
 }

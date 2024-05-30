@@ -1,9 +1,11 @@
 ﻿using Autofac;
 using AutoMapper;
 using LePickaOrders.Application.Dtos;
+using LePickaOrders.Application.Dtos.EventDtos;
 using LePickaOrders.Domain.Products;
+using LePickaOrders.Domain.Users;
 
-namespace LePickaOrders.Application
+namespace LePickaOrders.Application.Modules
 {
     public class AutoMapperModule : Module
     {
@@ -12,6 +14,9 @@ namespace LePickaOrders.Application
             builder.Register(c => new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Product, ProductDto>();
+                cfg.CreateMap<AuthUserAddedDto, User>()
+                    .ForMember(dest => dest.ExternalId, opt => opt.MapFrom(src => src.Id))
+                    .ForMember(dest => dest.Id, opt => opt.Ignore());
             })).AsSelf().SingleInstance();
 
 
